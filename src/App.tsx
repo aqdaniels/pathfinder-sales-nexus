@@ -10,6 +10,7 @@ import ClientIntelligence from "./pages/ClientIntelligence";
 import PortfolioAdvisor from "./pages/PortfolioAdvisor";
 import MarketPosition from "./pages/MarketPosition";
 import SwotAnalysis from "./pages/SwotAnalysis";
+import GrowthAnalyzer from "./pages/GrowthAnalyzer";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/portfolio-advisor" element={<PortfolioAdvisor />} />
           <Route path="/market-position" element={<MarketPosition />} />
           <Route path="/swot-analysis" element={<SwotAnalysis />} />
+          <Route path="/growth-analyzer" element={<GrowthAnalyzer />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
