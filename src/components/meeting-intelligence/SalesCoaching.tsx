@@ -75,8 +75,7 @@ export function SalesCoaching() {
                   {coachingData.conversationMetrics.talkRatio}%
                 </span>
               </div>
-              <Progress value={coachingData.conversationMetrics.talkRatio} className="h-2" 
-                indicator={coachingData.conversationMetrics.talkRatio > 65 ? 'bg-amber-500' : 'bg-green-500'} />
+              <Progress value={coachingData.conversationMetrics.talkRatio} className={`h-2 ${coachingData.conversationMetrics.talkRatio > 65 ? 'bg-amber-500' : 'bg-green-500'}`} />
               <p className="text-xs text-muted-foreground">
                 {coachingData.conversationMetrics.talkRatio > 65 
                   ? 'Try to listen more than you speak'
@@ -94,8 +93,7 @@ export function SalesCoaching() {
                   {coachingData.conversationMetrics.questionQuality}%
                 </span>
               </div>
-              <Progress value={coachingData.conversationMetrics.questionQuality} className="h-2" 
-                indicator={coachingData.conversationMetrics.questionQuality < 70 ? 'bg-amber-500' : 'bg-green-500'} />
+              <Progress value={coachingData.conversationMetrics.questionQuality} className={`h-2 ${coachingData.conversationMetrics.questionQuality < 70 ? 'bg-amber-500' : 'bg-green-500'}`} />
               <p className="text-xs text-muted-foreground">
                 {coachingData.conversationMetrics.questionQuality < 70
                   ? 'Focus on more open-ended questions'
@@ -113,8 +111,7 @@ export function SalesCoaching() {
                   {coachingData.conversationMetrics.listeningSkills}%
                 </span>
               </div>
-              <Progress value={coachingData.conversationMetrics.listeningSkills} className="h-2" 
-                indicator={coachingData.conversationMetrics.listeningSkills < 70 ? 'bg-amber-500' : 'bg-green-500'} />
+              <Progress value={coachingData.conversationMetrics.listeningSkills} className={`h-2 ${coachingData.conversationMetrics.listeningSkills < 70 ? 'bg-amber-500' : 'bg-green-500'}`} />
               <p className="text-xs text-muted-foreground">
                 {coachingData.conversationMetrics.listeningSkills < 70
                   ? 'Try reflecting back what you hear more often'
@@ -132,8 +129,7 @@ export function SalesCoaching() {
                   {coachingData.conversationMetrics.valueMessaging}%
                 </span>
               </div>
-              <Progress value={coachingData.conversationMetrics.valueMessaging} className="h-2" 
-                indicator={coachingData.conversationMetrics.valueMessaging < 70 ? 'bg-amber-500' : 'bg-green-500'} />
+              <Progress value={coachingData.conversationMetrics.valueMessaging} className={`h-2 ${coachingData.conversationMetrics.valueMessaging < 70 ? 'bg-amber-500' : 'bg-green-500'}`} />
               <p className="text-xs text-muted-foreground">
                 {coachingData.conversationMetrics.valueMessaging < 70
                   ? 'Connect features to business outcomes more clearly'
@@ -151,8 +147,7 @@ export function SalesCoaching() {
                   {coachingData.conversationMetrics.overallScore}%
                 </span>
               </div>
-              <Progress value={coachingData.conversationMetrics.overallScore} className="h-2" 
-                indicator={coachingData.conversationMetrics.overallScore < 70 ? 'bg-amber-500' : 'bg-green-500'} />
+              <Progress value={coachingData.conversationMetrics.overallScore} className={`h-2 ${coachingData.conversationMetrics.overallScore < 70 ? 'bg-amber-500' : 'bg-green-500'}`} />
               <p className="text-xs text-muted-foreground">
                 {coachingData.conversationMetrics.overallScore < 70
                   ? 'Focus on improvement areas below'
