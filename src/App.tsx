@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,6 +12,7 @@ import MarketPosition from "./pages/MarketPosition";
 import SwotAnalysis from "./pages/SwotAnalysis";
 import GrowthAnalyzer from "./pages/GrowthAnalyzer";
 import CompetitiveBattlecard from "./pages/CompetitiveBattlecard";
+import ExecutiveValueStorytelling from "./pages/ExecutiveValueStorytelling";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +30,7 @@ const App = () => (
           <Route path="/swot-analysis" element={<SwotAnalysis />} />
           <Route path="/growth-analyzer" element={<GrowthAnalyzer />} />
           <Route path="/competitive-battlecard" element={<CompetitiveBattlecard />} />
+          <Route path="/executive-value-storytelling" element={<ExecutiveValueStorytelling />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
