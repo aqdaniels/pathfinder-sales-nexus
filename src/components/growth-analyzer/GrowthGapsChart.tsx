@@ -146,6 +146,7 @@ export const GrowthGapsChart = ({ client, industry, timeframe }: GrowthGapsChart
                 <ReferenceLine 
                   y={0} 
                   stroke="#666" 
+                  yAxisId="left"
                 />
               </BarChart>
             </ChartContainer>
