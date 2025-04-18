@@ -17,6 +17,7 @@ import {
   FileText,
   FileSpreadsheet,
   MessageSquareText,
+  Mic,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -101,6 +102,11 @@ const sidebarSections: SidebarSection[] = [
         icon: FileSpreadsheet,
         label: "Technology Maturity",
         path: "/technology-maturity-assessment",
+      },
+      {
+        icon: Mic,
+        label: "Meeting Intelligence",
+        path: "/meeting-intelligence",
       },
     ],
   },

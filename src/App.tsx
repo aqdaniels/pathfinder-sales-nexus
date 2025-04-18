@@ -14,6 +14,7 @@ import GrowthAnalyzer from "./pages/GrowthAnalyzer";
 import CompetitiveBattlecard from "./pages/CompetitiveBattlecard";
 import ExecutiveValueStorytelling from "./pages/ExecutiveValueStorytelling";
 import TechnologyMaturityAssessment from "./pages/TechnologyMaturityAssessment";
+import MeetingIntelligence from "./pages/MeetingIntelligence";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/competitive-battlecard" element={<CompetitiveBattlecard />} />
           <Route path="/executive-value-storytelling" element={<ExecutiveValueStorytelling />} />
           <Route path="/technology-maturity-assessment" element={<TechnologyMaturityAssessment />} />
+          <Route path="/meeting-intelligence" element={<MeetingIntelligence />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
