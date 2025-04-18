@@ -61,7 +61,26 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+                dxc: {
+                    purple: {
+                        DEFAULT: '#9b87f5',
+                        dark: '#7E69AB',
+                        darker: '#6E59A5',
+                        deepdark: '#1A1F2C',
+                        light: '#D6BCFA'
+                    },
+                    blue: {
+                        bright: '#1EAEDB',
+                        sky: '#33C3F0'
+                    },
+                    gray: {
+                        neutral: '#8E9196',
+                        soft: '#F1F0FB',
+                        dark: '#221F26',
+                        cool: '#aaadb0'
+                    }
+                }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +103,31 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+                'fade-in': {
+                    '0%': { opacity: '0', transform: 'translateY(10px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' }
+                },
+                'scale-in': {
+                    '0%': { transform: 'scale(0.95)', opacity: '0' },
+                    '100%': { transform: 'scale(1)', opacity: '1' }
+                },
+                'slide-in-right': {
+                    '0%': { transform: 'translateX(100%)' },
+                    '100%': { transform: 'translateX(0)' }
+                },
+                'pulse-gentle': {
+                    '0%, 100%': { opacity: '1' },
+                    '50%': { opacity: '0.8' }
+                }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+                'fade-in': 'fade-in 0.3s ease-out',
+                'scale-in': 'scale-in 0.2s ease-out',
+                'slide-in-right': 'slide-in-right 0.3s ease-out',
+                'pulse-gentle': 'pulse-gentle 3s ease-in-out infinite'
 			}
 		}
 	},
