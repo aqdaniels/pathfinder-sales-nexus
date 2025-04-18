@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { TreeMap, Tooltip, ResponsiveContainer } from "recharts";
+import { Treemap, Tooltip, ResponsiveContainer } from "recharts";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -197,7 +197,7 @@ export const AdjacencyOpportunities = ({ client, industry, timeframe }: Adjacenc
         <CardContent>
           <div className="h-[400px]">
             <ChartContainer config={chartConfig}>
-              <TreeMap
+              <Treemap
                 data={treeMapData}
                 dataKey="value"
                 aspectRatio={4 / 3}
@@ -207,7 +207,7 @@ export const AdjacencyOpportunities = ({ client, industry, timeframe }: Adjacenc
                 <ChartTooltip 
                   content={<ChartTooltipContent />}
                 />
-              </TreeMap>
+              </Treemap>
             </ChartContainer>
           </div>
         </CardContent>
