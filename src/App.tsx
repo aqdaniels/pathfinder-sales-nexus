@@ -13,6 +13,7 @@ import SwotAnalysis from "./pages/SwotAnalysis";
 import GrowthAnalyzer from "./pages/GrowthAnalyzer";
 import CompetitiveBattlecard from "./pages/CompetitiveBattlecard";
 import ExecutiveValueStorytelling from "./pages/ExecutiveValueStorytelling";
+import TechnologyMaturityAssessment from "./pages/TechnologyMaturityAssessment";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/growth-analyzer" element={<GrowthAnalyzer />} />
           <Route path="/competitive-battlecard" element={<CompetitiveBattlecard />} />
           <Route path="/executive-value-storytelling" element={<ExecutiveValueStorytelling />} />
+          <Route path="/technology-maturity-assessment" element={<TechnologyMaturityAssessment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

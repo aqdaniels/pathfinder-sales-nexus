@@ -1,3 +1,4 @@
+
 import {
   BarChart3,
   Brain,
@@ -14,6 +15,8 @@ import {
   UsersRound,
   ChartBar,
   FileText,
+  FileSpreadsheet,
+  MessageSquareText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -88,6 +91,16 @@ const sidebarSections: SidebarSection[] = [
         icon: FileText,
         label: "Competitive Battlecard",
         path: "/competitive-battlecard",
+      },
+      {
+        icon: MessageSquareText,
+        label: "Executive Storytelling",
+        path: "/executive-value-storytelling",
+      },
+      {
+        icon: FileSpreadsheet,
+        label: "Technology Maturity",
+        path: "/technology-maturity-assessment",
       },
     ],
   },
