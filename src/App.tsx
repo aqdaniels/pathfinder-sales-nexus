@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,6 +10,7 @@ import PortfolioAdvisor from "./pages/PortfolioAdvisor";
 import MarketPosition from "./pages/MarketPosition";
 import SwotAnalysis from "./pages/SwotAnalysis";
 import GrowthAnalyzer from "./pages/GrowthAnalyzer";
+import CompetitiveBattlecard from "./pages/CompetitiveBattlecard";
 
 const queryClient = new QueryClient();
 
@@ -27,7 +27,7 @@ const App = () => (
           <Route path="/market-position" element={<MarketPosition />} />
           <Route path="/swot-analysis" element={<SwotAnalysis />} />
           <Route path="/growth-analyzer" element={<GrowthAnalyzer />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/competitive-battlecard" element={<CompetitiveBattlecard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,4 +1,3 @@
-
 import {
   BarChart3,
   Brain,
@@ -13,6 +12,8 @@ import {
   Settings,
   Swords,
   UsersRound,
+  ChartBar,
+  FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -72,6 +73,21 @@ const sidebarSections: SidebarSection[] = [
         icon: UsersRound,
         label: "Clients",
         path: "/clients",
+      },
+    ],
+  },
+  {
+    title: "Growth",
+    items: [
+      {
+        icon: ChartBar,
+        label: "Granularity of Growth",
+        path: "/growth-analyzer",
+      },
+      {
+        icon: FileText,
+        label: "Competitive Battlecard",
+        path: "/competitive-battlecard",
       },
     ],
   },
