@@ -17,6 +17,7 @@ import TechnologyMaturityAssessment from "./pages/TechnologyMaturityAssessment";
 import MeetingIntelligence from "./pages/MeetingIntelligence";
 import ValueChain from "./pages/ValueChain";
 import StrategyDevelopment from "./pages/StrategyDevelopment";
+import CompetitiveIntelligence from "./pages/CompetitiveIntelligence";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/meeting-intelligence" element={<MeetingIntelligence />} />
           <Route path="/value-chain" element={<ValueChain />} />
           <Route path="/strategy-development" element={<StrategyDevelopment />} />
+          <Route path="/competitive-intel" element={<CompetitiveIntelligence />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
