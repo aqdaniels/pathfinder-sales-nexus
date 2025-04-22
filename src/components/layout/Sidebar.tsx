@@ -18,6 +18,7 @@ import {
   FileSpreadsheet,
   MessageSquareText,
   Mic,
+  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -147,6 +148,11 @@ const sidebarSections: SidebarSection[] = [
         icon: Building2,
         label: "Value Chain",
         path: "/value-chain",
+      },
+      {
+        icon: Sparkles,
+        label: "Strategy Development",
+        path: "/strategy-development",
       },
       {
         icon: Flashlight,
