@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -1056,7 +1055,7 @@ export function StrategyTestingTools() {
                 <div className="grid grid-cols-3 gap-6">
                   <div className="p-4 bg-purple-50 rounded-md border border-purple-100">
                     <div className="flex items-center text-purple-700 font-medium mb-3">
-                      <Shield className="h-5 w-5 mr-2" />
+                      <ShieldCheck className="h-5 w-5 mr-2" />
                       Competitive Strengths
                     </div>
                     <ul className="space-y-2">
