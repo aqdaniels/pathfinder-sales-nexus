@@ -1,12 +1,11 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { BarChart, LineChart, PieChart, PieArcDatum } from "recharts";
-import { ArrowRight, Download, FileDown, FileText, MessageSquare, PlusCircle, Presentation, Share2 } from "lucide-react";
+import { BarChart, LineChart, PieChart } from "recharts";
+import { ArrowRight, Download, FileDown, FileText, Lightbulb, MessageSquare, PlusCircle, Presentation, Share2 } from "lucide-react";
 
 export function ExecutiveCommunication() {
   const [selectedPresentation, setSelectedPresentation] = useState("exec-summary");
