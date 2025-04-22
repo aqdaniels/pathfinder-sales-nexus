@@ -30,6 +30,36 @@ import {
   Area
 } from "recharts";
 
+// Define types for benefit and cost items
+interface BenefitItem {
+  value: number;
+  confidence: number;
+}
+
+interface CostItem {
+  value: number;
+  confidence: number;
+}
+
+interface CompetitorInfo {
+  benefits: number;
+  costs: number;
+}
+
+// Define types for the ROI model data
+interface RoiModelData {
+  benefits: {
+    [key: string]: BenefitItem;
+  };
+  costs: {
+    [key: string]: CostItem;
+  };
+  competitors: {
+    [key: string]: CompetitorInfo;
+  };
+  timeline: number;
+}
+
 export function ValueVisualizationTools() {
   const [activeTab, setActiveTab] = useState("tco-calculator");
 
@@ -516,7 +546,7 @@ function RiskAdjustedRoi() {
   const [riskProfile, setRiskProfile] = useState("moderate");
   
   // Risk-adjusted ROI model data
-  const roiModelData = {
+  const roiModelData: { [key: string]: RoiModelData } = {
     "cloud-transformation": {
       benefits: {
         "infrastructure-savings": { value: 2500000, confidence: 0.9 },
@@ -546,7 +576,7 @@ function RiskAdjustedRoi() {
   };
   
   // Risk adjustment factors based on risk profile
-  const riskAdjustments = {
+  const riskAdjustments: { [key: string]: { benefits: number; costs: number } } = {
     "low": { benefits: 0.95, costs: 1.05 },
     "moderate": { benefits: 0.85, costs: 1.1 },
     "high": { benefits: 0.7, costs: 1.2 }
@@ -556,12 +586,12 @@ function RiskAdjustedRoi() {
   const riskFactor = riskAdjustments[riskProfile];
   
   // Calculate DXC ROI
-  const totalBenefits = Object.values(selectedModel.benefits).reduce(
-    (sum, item) => sum + (item.value * item.confidence), 0
+  const totalBenefits = Object.entries(selectedModel.benefits).reduce(
+    (sum, [_, item]) => sum + (item.value * item.confidence), 0
   );
   
-  const totalCosts = Object.values(selectedModel.costs).reduce(
-    (sum, item) => sum + (item.value * item.confidence), 0
+  const totalCosts = Object.entries(selectedModel.costs).reduce(
+    (sum, [_, item]) => sum + (item.value * item.confidence), 0
   );
   
   // Apply risk adjustments
@@ -569,7 +599,7 @@ function RiskAdjustedRoi() {
   const riskAdjustedCosts = totalCosts * riskFactor.costs;
   
   // Calculate competitor ROIs
-  const competitorResults = {
+  const competitorResults: { [key: string]: { benefits: number; costs: number } } = {
     "acme-corp": {
       benefits: riskAdjustedBenefits * selectedModel.competitors["acme-corp"].benefits,
       costs: riskAdjustedCosts * selectedModel.competitors["acme-corp"].costs
@@ -594,10 +624,30 @@ function RiskAdjustedRoi() {
   
   // Prepare data for benefits breakdown chart
   const benefitsData = [
-    { name: "Infrastructure", DXC: selectedModel.benefits["infrastructure-savings"].value * selectedModel.benefits["infrastructure-savings"].confidence * riskFactor.benefits },
-    { name: "Operational", DXC: selectedModel.benefits["operational-efficiency"].value * selectedModel.benefits["operational-efficiency"].confidence * riskFactor.benefits },
-    { name: "Time to Market", DXC: selectedModel.benefits["faster-time-to-market"].value * selectedModel.benefits["faster-time-to-market"].confidence * riskFactor.benefits },
-    { name: "Reduced Downtime", DXC: selectedModel.benefits["reduced-downtime"].value * selectedModel.benefits["reduced-downtime"].confidence * riskFactor.benefits }
+    { 
+      name: "Infrastructure", 
+      DXC: selectedModel.benefits["infrastructure-savings"].value * selectedModel.benefits["infrastructure-savings"].confidence * riskFactor.benefits,
+      "Acme Corp": 0,
+      "Tech Solutions": 0
+    },
+    { 
+      name: "Operational", 
+      DXC: selectedModel.benefits["operational-efficiency"].value * selectedModel.benefits["operational-efficiency"].confidence * riskFactor.benefits,
+      "Acme Corp": 0,
+      "Tech Solutions": 0
+    },
+    { 
+      name: "Time to Market", 
+      DXC: selectedModel.benefits["faster-time-to-market"].value * selectedModel.benefits["faster-time-to-market"].confidence * riskFactor.benefits,
+      "Acme Corp": 0,
+      "Tech Solutions": 0
+    },
+    { 
+      name: "Reduced Downtime", 
+      DXC: selectedModel.benefits["reduced-downtime"].value * selectedModel.benefits["reduced-downtime"].confidence * riskFactor.benefits,
+      "Acme Corp": 0,
+      "Tech Solutions": 0
+    }
   ];
   
   // Add competitor data
@@ -673,7 +723,12 @@ function RiskAdjustedRoi() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis label={{ value: 'ROI %', angle: -90, position: 'insideLeft' }} />
-                  <Tooltip formatter={(value) => `${value.toFixed(1)}%`} />
+                  <Tooltip formatter={(value) => {
+                    if (typeof value === 'number') {
+                      return `${value.toFixed(1)}%`;
+                    }
+                    return value;
+                  }} />
                   <Bar dataKey="roi" fill="#8884d8" name="ROI %" />
                 </BarChart>
               </ResponsiveContainer>
@@ -704,7 +759,12 @@ function RiskAdjustedRoi() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis />
-                  <Tooltip formatter={(value) => `$${(value / 1000000).toFixed(2)}M`} />
+                  <Tooltip formatter={(value) => {
+                    if (typeof value === 'number') {
+                      return `$${(value / 1000000).toFixed(2)}M`;
+                    }
+                    return value;
+                  }} />
                   <Legend />
                   <Bar dataKey="DXC" fill="#8884d8" />
                   <Bar dataKey="Acme Corp" fill="#82ca9d" />
@@ -723,8 +783,13 @@ function RiskAdjustedRoi() {
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
-                <YAxis formatter={(value) => `$${(value / 1000000).toFixed(0)}M`} />
-                <Tooltip formatter={(value) => `$${(value / 1000000).toFixed(2)}M`} />
+                <YAxis tickFormatter={(value) => `$${(value / 1000000).toFixed(0)}M`} />
+                <Tooltip formatter={(value) => {
+                  if (typeof value === 'number') {
+                    return `$${(value / 1000000).toFixed(2)}M`;
+                  }
+                  return value;
+                }} />
                 <Legend />
                 <Area type="monotone" dataKey="DXC" stackId="1" stroke="#8884d8" fill="#8884d8" />
                 <Area type="monotone" dataKey="Acme Corp" stackId="2" stroke="#82ca9d" fill="#82ca9d" />
