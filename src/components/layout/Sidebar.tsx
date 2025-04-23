@@ -3,22 +3,22 @@ import {
   BarChart3,
   Brain,
   Building2,
+  ChartBar,
   FileCheck,
+  FileSpreadsheet,
+  FileText,
   Flashlight,
   Home,
-  LineChart,
   Menu,
+  MessageSquareText,
+  Mic,
   Scale,
   ScrollText,
   Settings,
-  Swords,
-  UsersRound,
-  ChartBar,
-  FileText,
-  FileSpreadsheet,
-  MessageSquareText,
-  Mic,
   Sparkles,
+  Swords,
+  Users,
+  UsersRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -56,7 +56,7 @@ const SidebarItem = ({
   );
 };
 
-type SidebarSection = {
+type NavCategory = {
   title: string;
   items: {
     icon: React.ElementType;
@@ -65,7 +65,7 @@ type SidebarSection = {
   }[];
 };
 
-const sidebarSections: SidebarSection[] = [
+const sidebarSections: NavCategory[] = [
   {
     title: "Main",
     items: [
@@ -74,35 +74,15 @@ const sidebarSections: SidebarSection[] = [
         label: "Dashboard",
         path: "/",
       },
-      {
-        icon: UsersRound,
-        label: "Clients",
-        path: "/clients",
-      },
     ],
   },
   {
-    title: "Growth",
+    title: "Client Understanding & Intelligence",
     items: [
       {
-        icon: ChartBar,
-        label: "Granularity of Growth",
-        path: "/growth-analyzer",
-      },
-      {
-        icon: FileText,
-        label: "Competitive Battlecard",
-        path: "/competitive-battlecard",
-      },
-      {
-        icon: MessageSquareText,
-        label: "Executive Storytelling",
-        path: "/executive-value-storytelling",
-      },
-      {
-        icon: FileSpreadsheet,
-        label: "Technology Maturity",
-        path: "/technology-maturity-assessment",
+        icon: Brain,
+        label: "Client Intelligence",
+        path: "/client-intelligence",
       },
       {
         icon: Mic,
@@ -112,22 +92,57 @@ const sidebarSections: SidebarSection[] = [
     ],
   },
   {
-    title: "Intelligence",
+    title: "Portfolio Alignment & Solution Mapping",
     items: [
-      {
-        icon: Brain,
-        label: "Client Intelligence",
-        path: "/client-intelligence",
-      },
       {
         icon: ScrollText,
         label: "Portfolio Advisor",
         path: "/portfolio-advisor",
       },
       {
+        icon: Building2,
+        label: "Value Chain Analysis",
+        path: "/value-chain",
+      },
+    ],
+  },
+  {
+    title: "Strategy & Value Development",
+    items: [
+      {
+        icon: Sparkles,
+        label: "Strategy Development",
+        path: "/strategy-development",
+      },
+      {
+        icon: MessageSquareText,
+        label: "Executive Value Storytelling",
+        path: "/executive-value-storytelling",
+      },
+    ],
+  },
+  {
+    title: "Competitive Positioning",
+    items: [
+      {
+        icon: Swords,
+        label: "Competitive Intelligence",
+        path: "/competitive-intel",
+      },
+      {
         icon: BarChart3,
         label: "Market Position",
         path: "/market-position",
+      },
+    ],
+  },
+  {
+    title: "Strategic Analysis Tools",
+    items: [
+      {
+        icon: ChartBar,
+        label: "Growth Analyzer",
+        path: "/growth-analyzer",
       },
       {
         icon: Scale,
@@ -137,27 +152,12 @@ const sidebarSections: SidebarSection[] = [
     ],
   },
   {
-    title: "Competitive",
+    title: "Capability Assessment & Planning",
     items: [
       {
-        icon: Swords,
-        label: "Competitive Intel",
-        path: "/competitive-intel",
-      },
-      {
-        icon: Building2,
-        label: "Value Chain",
-        path: "/value-chain",
-      },
-      {
-        icon: Sparkles,
-        label: "Strategy Development",
-        path: "/strategy-development",
-      },
-      {
-        icon: Flashlight,
-        label: "Strategy Dev",
-        path: "/strategy",
+        icon: FileSpreadsheet,
+        label: "Technology Maturity",
+        path: "/technology-maturity-assessment",
       },
       {
         icon: FileCheck,

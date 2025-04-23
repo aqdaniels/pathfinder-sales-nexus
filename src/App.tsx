@@ -29,18 +29,31 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          
+          {/* Client Understanding & Intelligence */}
           <Route path="/client-intelligence" element={<ClientIntelligence />} />
-          <Route path="/portfolio-advisor" element={<PortfolioAdvisor />} />
-          <Route path="/market-position" element={<MarketPosition />} />
-          <Route path="/swot-analysis" element={<SwotAnalysis />} />
-          <Route path="/growth-analyzer" element={<GrowthAnalyzer />} />
-          <Route path="/competitive-battlecard" element={<CompetitiveBattlecard />} />
-          <Route path="/executive-value-storytelling" element={<ExecutiveValueStorytelling />} />
-          <Route path="/technology-maturity-assessment" element={<TechnologyMaturityAssessment />} />
           <Route path="/meeting-intelligence" element={<MeetingIntelligence />} />
+          
+          {/* Portfolio Alignment & Solution Mapping */}
+          <Route path="/portfolio-advisor" element={<PortfolioAdvisor />} />
           <Route path="/value-chain" element={<ValueChain />} />
+          
+          {/* Strategy & Value Development */}
           <Route path="/strategy-development" element={<StrategyDevelopment />} />
+          <Route path="/executive-value-storytelling" element={<ExecutiveValueStorytelling />} />
+          
+          {/* Competitive Positioning */}
           <Route path="/competitive-intel" element={<CompetitiveIntelligence />} />
+          <Route path="/market-position" element={<MarketPosition />} />
+          
+          {/* Strategic Analysis Tools */}
+          <Route path="/growth-analyzer" element={<GrowthAnalyzer />} />
+          <Route path="/swot-analysis" element={<SwotAnalysis />} />
+          
+          {/* Capability Assessment & Planning */}
+          <Route path="/technology-maturity-assessment" element={<TechnologyMaturityAssessment />} />
+          <Route path="/competitive-battlecard" element={<CompetitiveBattlecard />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
