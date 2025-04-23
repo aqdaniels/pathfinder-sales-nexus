@@ -1,4 +1,3 @@
-
 import {
   BarChart3,
   Brain,
@@ -6,8 +5,6 @@ import {
   ChartBar,
   FileCheck,
   FileSpreadsheet,
-  FileText,
-  Flashlight,
   Home,
   Menu,
   MessageSquareText,
@@ -17,8 +14,6 @@ import {
   Settings,
   Sparkles,
   Swords,
-  Users,
-  UsersRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -56,16 +51,7 @@ const SidebarItem = ({
   );
 };
 
-type NavCategory = {
-  title: string;
-  items: {
-    icon: React.ElementType;
-    label: string;
-    path: string;
-  }[];
-};
-
-const sidebarSections: NavCategory[] = [
+const sidebarSections = [
   {
     title: "Main",
     items: [
@@ -77,7 +63,7 @@ const sidebarSections: NavCategory[] = [
     ],
   },
   {
-    title: "Client Understanding & Intelligence",
+    title: "Client Discovery & Understanding",
     items: [
       {
         icon: Brain,
@@ -89,16 +75,6 @@ const sidebarSections: NavCategory[] = [
         label: "Meeting Intelligence",
         path: "/meeting-intelligence",
       },
-    ],
-  },
-  {
-    title: "Portfolio Alignment & Solution Mapping",
-    items: [
-      {
-        icon: ScrollText,
-        label: "Portfolio Advisor",
-        path: "/portfolio-advisor",
-      },
       {
         icon: Building2,
         label: "Value Chain Analysis",
@@ -107,7 +83,7 @@ const sidebarSections: NavCategory[] = [
     ],
   },
   {
-    title: "Strategy & Value Development",
+    title: "Strategy & Value Creation",
     items: [
       {
         icon: Sparkles,
@@ -115,14 +91,24 @@ const sidebarSections: NavCategory[] = [
         path: "/strategy-development",
       },
       {
+        icon: ScrollText,
+        label: "Portfolio Advisor",
+        path: "/portfolio-advisor",
+      },
+      {
         icon: MessageSquareText,
-        label: "Executive Value Storytelling",
+        label: "Executive Storytelling",
         path: "/executive-value-storytelling",
+      },
+      {
+        icon: ChartBar,
+        label: "Growth Analyzer",
+        path: "/growth-analyzer",
       },
     ],
   },
   {
-    title: "Competitive Positioning",
+    title: "Market & Competitive Intelligence",
     items: [
       {
         icon: Swords,
@@ -134,35 +120,15 @@ const sidebarSections: NavCategory[] = [
         label: "Market Position",
         path: "/market-position",
       },
-    ],
-  },
-  {
-    title: "Strategic Analysis Tools",
-    items: [
-      {
-        icon: ChartBar,
-        label: "Growth Analyzer",
-        path: "/growth-analyzer",
-      },
       {
         icon: Scale,
         label: "SWOT Analysis",
         path: "/swot-analysis",
       },
-    ],
-  },
-  {
-    title: "Capability Assessment & Planning",
-    items: [
       {
         icon: FileSpreadsheet,
         label: "Technology Maturity",
         path: "/technology-maturity-assessment",
-      },
-      {
-        icon: FileCheck,
-        label: "Implementation",
-        path: "/implementation",
       },
     ],
   },

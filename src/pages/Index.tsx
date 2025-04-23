@@ -1,5 +1,5 @@
 
-import { BarChart3, BriefcaseBusiness, LayoutGrid, MapPin, Users, Zap } from "lucide-react";
+import { BarChart3, BriefcaseBusiness, Brain, Swords } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { ChartCard, ChartData } from "@/components/dashboard/ChartCard";
@@ -7,11 +7,10 @@ import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { TopClients } from "@/components/dashboard/TopClients";
 
 // Sample data for charts
-const opportunitiesByPractice: ChartData[] = [
-  { name: "Custom Apps", value: 32 },
-  { name: "SAP", value: 28 },
-  { name: "Enterprise & Cloud", value: 45 },
-  { name: "Data & AI", value: 35 },
+const opportunitiesByCategory: ChartData[] = [
+  { name: "Client Discovery", value: 35 },
+  { name: "Strategy Creation", value: 42 },
+  { name: "Competitive Intel", value: 28 },
 ];
 
 const opportunitiesByStage: ChartData[] = [
@@ -41,39 +40,39 @@ const Index = () => {
   return (
     <Layout>
       <div>
-        <h1 className="text-3xl font-bold mb-1">Sales Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-1">Sales Performance Dashboard</h1>
         <p className="text-muted-foreground">
-          Overview of your portfolio performance, opportunities, and client insights
+          Overview of opportunities across client discovery, strategy, and competitive intelligence
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
         <StatCard
-          title="Active Opportunities"
-          value={124}
+          title="Client Discovery"
+          value={35}
           change={8}
-          icon={Zap}
-          iconColor="text-yellow-500"
-          iconBgColor="bg-yellow-100"
+          icon={Brain}
+          iconColor="text-blue-500"
+          iconBgColor="bg-blue-100"
         />
         <StatCard
-          title="Pipeline Value"
-          value="$34.8M"
+          title="Strategy Creation"
+          value={42}
           change={12}
           icon={BriefcaseBusiness}
           iconColor="text-green-500"
           iconBgColor="bg-green-100"
         />
         <StatCard
-          title="Active Clients"
-          value={48}
+          title="Competitive Intel"
+          value={28}
           change={5}
-          icon={Users}
-          iconColor="text-blue-500"
-          iconBgColor="bg-blue-100"
+          icon={Swords}
+          iconColor="text-purple-500"
+          iconBgColor="bg-purple-100"
         />
         <StatCard
-          title="Win Rate"
+          title="Overall Win Rate"
           value="68%"
           change={3}
           icon={BarChart3}
@@ -94,8 +93,8 @@ const Index = () => {
         </div>
         <div>
           <ChartCard
-            title="Opportunities by Practice"
-            data={opportunitiesByPractice}
+            title="Opportunities by Category"
+            data={opportunitiesByCategory}
             type="pie"
             height={250}
           />
