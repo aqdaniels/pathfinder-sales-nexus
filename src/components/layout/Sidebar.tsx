@@ -88,11 +88,6 @@ const sidebarSections = [
     title: "Strategy & Value Creation",
     items: [
       {
-        icon: Sparkles,
-        label: "Strategy Development",
-        path: "/strategy-development",
-      },
-      {
         icon: ScrollText,
         label: "Portfolio Advisor",
         path: "/portfolio-advisor",
@@ -137,6 +132,11 @@ const sidebarSections = [
   {
     title: "Ideas",
     items: [
+      {
+        icon: Sparkles,
+        label: "Strategy Development",
+        path: "/strategy-development",
+      },
       {
         icon: Library,
         label: "Knowledge Resources",
