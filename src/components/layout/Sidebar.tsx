@@ -93,11 +93,6 @@ const sidebarSections = [
         path: "/portfolio-advisor",
       },
       {
-        icon: MessageSquareText,
-        label: "Executive Storytelling",
-        path: "/executive-value-storytelling",
-      },
-      {
         icon: ChartBar,
         label: "Growth Analyzer",
         path: "/growth-analyzer",
@@ -136,6 +131,11 @@ const sidebarSections = [
         icon: Sparkles,
         label: "Strategy Development",
         path: "/strategy-development",
+      },
+      {
+        icon: MessageSquareText,
+        label: "Executive Storytelling",
+        path: "/executive-value-storytelling",
       },
       {
         icon: Library,
