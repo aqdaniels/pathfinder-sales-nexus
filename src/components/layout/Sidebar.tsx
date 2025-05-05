@@ -135,7 +135,7 @@ const sidebarSections = [
     ],
   },
   {
-    title: "Resources",
+    title: "Ideas",
     items: [
       {
         icon: Library,
