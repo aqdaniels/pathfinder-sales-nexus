@@ -1,3 +1,4 @@
+
 import {
   BarChart3,
   Brain,
@@ -6,6 +7,7 @@ import {
   FileCheck,
   FileSpreadsheet,
   Home,
+  Library,
   Menu,
   MessageSquareText,
   Mic,
@@ -129,6 +131,16 @@ const sidebarSections = [
         icon: FileSpreadsheet,
         label: "Technology Maturity",
         path: "/technology-maturity-assessment",
+      },
+    ],
+  },
+  {
+    title: "Resources",
+    items: [
+      {
+        icon: Library,
+        label: "Knowledge Resources",
+        path: "/resources",
       },
     ],
   },

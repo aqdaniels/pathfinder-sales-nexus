@@ -18,6 +18,7 @@ import MeetingIntelligence from "./pages/MeetingIntelligence";
 import ValueChain from "./pages/ValueChain";
 import StrategyDevelopment from "./pages/StrategyDevelopment";
 import CompetitiveIntelligence from "./pages/CompetitiveIntelligence";
+import Resources from "./pages/Resources";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +54,9 @@ const App = () => (
           {/* Capability Assessment & Planning */}
           <Route path="/technology-maturity-assessment" element={<TechnologyMaturityAssessment />} />
           <Route path="/competitive-battlecard" element={<CompetitiveBattlecard />} />
+          
+          {/* Resources */}
+          <Route path="/resources" element={<Resources />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
