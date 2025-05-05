@@ -5,6 +5,7 @@ import { ConversationInsights } from "./ConversationInsights";
 import { PostMeetingAnalysis } from "./PostMeetingAnalysis";
 import { SalesCoaching } from "./SalesCoaching";
 import { KnowledgeSharing } from "./KnowledgeSharing";
+import { MeetingIntelligenceDashboard } from "./MeetingIntelligenceDashboard";
 
 export function MeetingIntelligenceMain() {
   return (
@@ -16,14 +17,19 @@ export function MeetingIntelligenceMain() {
         </p>
       </div>
 
-      <Tabs defaultValue="pre-meeting" className="space-y-4">
-        <TabsList className="grid grid-cols-5 w-full">
+      <Tabs defaultValue="dashboard" className="space-y-4">
+        <TabsList className="grid grid-cols-6 w-full">
+          <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="pre-meeting">Pre-Meeting Intel</TabsTrigger>
           <TabsTrigger value="conversation">Conversation Insights</TabsTrigger>
           <TabsTrigger value="post-meeting">Post-Meeting Analysis</TabsTrigger>
           <TabsTrigger value="coaching">Sales Coaching</TabsTrigger>
           <TabsTrigger value="knowledge">Knowledge Sharing</TabsTrigger>
         </TabsList>
+        
+        <TabsContent value="dashboard">
+          <MeetingIntelligenceDashboard />
+        </TabsContent>
         
         <TabsContent value="pre-meeting">
           <PreMeetingIntelligence />
