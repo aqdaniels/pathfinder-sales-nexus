@@ -6,10 +6,6 @@ import { ConversationInsights } from "./ConversationInsights";
 import { PostMeetingAnalysis } from "./PostMeetingAnalysis";
 import { SalesCoaching } from "./SalesCoaching";
 import { MeetingIntelligenceDashboard } from "./MeetingIntelligenceDashboard";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Calendar, Users2, Video } from "lucide-react";
 
 // Sample meeting data
 const meetings = [
@@ -44,8 +40,8 @@ const meetings = [
 ];
 
 export function MeetingIntelligenceMain() {
-  const [selectedMeetingId, setSelectedMeetingId] = useState(meetings[0].id);
-  const selectedMeeting = meetings.find(m => m.id === selectedMeetingId) || meetings[0];
+  // Using a fixed meeting instead of selection
+  const selectedMeeting = meetings[0];
 
   return (
     <div className="space-y-6">
@@ -55,45 +51,6 @@ export function MeetingIntelligenceMain() {
           Enhance client conversations with AI-powered insights and coaching
         </p>
       </div>
-
-      {/* Meeting Selector */}
-      <Card className="border-dashed border-2 border-dxc-purple/30">
-        <CardContent className="p-4">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-1">
-              <h3 className="text-sm font-medium text-muted-foreground">Select Meeting</h3>
-              <Select value={selectedMeetingId} onValueChange={setSelectedMeetingId}>
-                <SelectTrigger className="w-full sm:w-[300px]">
-                  <SelectValue placeholder="Select a meeting" />
-                </SelectTrigger>
-                <SelectContent>
-                  {meetings.map((meeting) => (
-                    <SelectItem key={meeting.id} value={meeting.id}>
-                      {meeting.title} ({meeting.date})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <div className="flex items-center gap-1 text-xs">
-                <Calendar className="h-3.5 w-3.5 text-dxc-purple" />
-                <span>{selectedMeeting.date}</span>
-              </div>
-              <div className="flex items-center gap-1 text-xs">
-                <Video className="h-3.5 w-3.5 text-dxc-purple" />
-                <Badge variant="outline" className="text-xs font-normal">
-                  {selectedMeeting.type}
-                </Badge>
-              </div>
-              <div className="flex items-center gap-1 text-xs">
-                <Users2 className="h-3.5 w-3.5 text-dxc-purple" />
-                <span>{selectedMeeting.participants.length} participants</span>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       <Tabs defaultValue="dashboard" className="space-y-4">
         <TabsList className="grid grid-cols-5 w-full">
