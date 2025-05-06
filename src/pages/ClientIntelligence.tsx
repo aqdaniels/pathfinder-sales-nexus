@@ -1,11 +1,11 @@
 
 import { Layout } from "@/components/layout/Layout";
-import { ConversationInsights } from "@/components/client-intelligence/ConversationInsights";
+import { ClientIntelligenceDashboard } from "@/components/client-intelligence/ClientIntelligenceDashboard";
 
 const ClientIntelligence = () => {
   return (
     <Layout>
-      <ConversationInsights />
+      <ClientIntelligenceDashboard />
     </Layout>
   );
 };
