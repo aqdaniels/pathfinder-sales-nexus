@@ -8,7 +8,10 @@ import {
   TrendingUp, 
   Share2, 
   ArrowRight, 
-  RefreshCw
+  RefreshCw,
+  Calendar,
+  Users,
+  Link
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,9 +20,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { GrowthGapsChart } from "./GrowthGapsChart";
 import { MarketShareAnalysis } from "./MarketShareAnalysis";
-import { AdjacencyOpportunities } from "./AdjacencyOpportunities";
+import { WhitespaceExplorer } from "./WhitespaceExplorer";
 import { ValuePropositions } from "./ValuePropositions";
 import { WhatIfBuilder } from "./WhatIfBuilder";
+import { AccountGrowthDashboard } from "./AccountGrowthDashboard";
+import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 export const GrowthAnalyzer = () => {
   const [selectedClient, setSelectedClient] = useState("acme-corp");
@@ -108,7 +114,7 @@ export const GrowthAnalyzer = () => {
           <CardContent>
             <div className="flex justify-between items-center">
               <span className="text-3xl font-bold">+7.3%</span>
-              <Badge variant="success" className="gap-1">
+              <Badge variant="outline" className="gap-1 bg-green-100 text-green-800 border-green-200">
                 <TrendingUp className="h-3 w-3" />
                 2.1% above avg
               </Badge>
@@ -130,7 +136,7 @@ export const GrowthAnalyzer = () => {
           <CardContent>
             <div className="flex justify-between items-center">
               <span className="text-3xl font-bold">-2.4%</span>
-              <Badge variant="warning" className="gap-1">
+              <Badge variant="outline" className="gap-1 bg-yellow-100 text-yellow-800 border-yellow-200">
                 <Share2 className="h-3 w-3" />
                 Potential loss
               </Badge>
@@ -145,14 +151,14 @@ export const GrowthAnalyzer = () => {
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-primary" />
-              M&A/Adjacency Potential
+              Adjacency Potential
             </CardTitle>
             <CardDescription>Expansion opportunities</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex justify-between items-center">
               <span className="text-3xl font-bold">$142M</span>
-              <Badge className="gap-1 bg-primary">
+              <Badge className="gap-1 bg-primary/20 text-primary border-primary/20">
                 <ArrowRight className="h-3 w-3" />
                 High confidence
               </Badge>
@@ -164,14 +170,87 @@ export const GrowthAnalyzer = () => {
         </Card>
       </div>
 
+      {/* Additional quick access tools */}
+      <div className="flex flex-wrap gap-3">
+        <Drawer>
+          <DrawerTrigger asChild>
+            <Button variant="outline" size="sm" className="gap-1">
+              <Calendar className="h-4 w-4" />
+              Client Value Journey
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent className="p-6">
+            <DrawerHeader className="text-left">
+              <DrawerTitle>Client Value Journey</DrawerTitle>
+              <DrawerDescription>
+                Historical and future-focused visualization of the relationship
+              </DrawerDescription>
+            </DrawerHeader>
+            <div className="space-y-4 py-4">
+              <div className="bg-muted/30 p-4 rounded-md">
+                <p className="text-center text-muted-foreground">
+                  Client Value Journey Map feature coming soon
+                </p>
+              </div>
+            </div>
+          </DrawerContent>
+        </Drawer>
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="sm" className="gap-1">
+              <Users className="h-4 w-4" />
+              Relationship Network
+            </Button>
+          </SheetTrigger>
+          <SheetContent className="w-[400px] sm:w-[540px] p-6">
+            <SheetHeader>
+              <SheetTitle>Relationship Network Manager</SheetTitle>
+              <SheetDescription>
+                Key stakeholders, influence mapping, and relationship health
+              </SheetDescription>
+            </SheetHeader>
+            <div className="space-y-4 py-4">
+              <div className="bg-muted/30 p-4 rounded-md">
+                <p className="text-center text-muted-foreground">
+                  Relationship Network Manager feature coming soon
+                </p>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
+
+        <Button variant="outline" size="sm" className="gap-1">
+          <Link className="h-4 w-4" />
+          Strategic Initiatives
+        </Button>
+      </div>
+
       {/* Main content tabs */}
-      <Tabs defaultValue="growth-gaps" className="w-full">
-        <TabsList className="grid grid-cols-4 mb-4">
+      <Tabs defaultValue="account-dashboard" className="w-full">
+        <TabsList className="grid grid-cols-5 mb-4">
+          <TabsTrigger value="account-dashboard">Executive Dashboard</TabsTrigger>
+          <TabsTrigger value="whitespace">Whitespace Explorer</TabsTrigger>
           <TabsTrigger value="growth-gaps">Growth Gaps</TabsTrigger>
           <TabsTrigger value="market-share">Market Share</TabsTrigger>
-          <TabsTrigger value="adjacencies">Adjacencies</TabsTrigger>
           <TabsTrigger value="what-if">What-If Scenarios</TabsTrigger>
         </TabsList>
+        
+        <TabsContent value="account-dashboard" className="space-y-4">
+          <AccountGrowthDashboard 
+            client={selectedClient} 
+            industry={selectedIndustry} 
+            timeframe={timeframe} 
+          />
+        </TabsContent>
+        
+        <TabsContent value="whitespace" className="space-y-4">
+          <WhitespaceExplorer 
+            client={selectedClient} 
+            industry={selectedIndustry} 
+            timeframe={timeframe} 
+          />
+        </TabsContent>
         
         <TabsContent value="growth-gaps" className="space-y-4">
           <GrowthGapsChart 
@@ -196,19 +275,6 @@ export const GrowthAnalyzer = () => {
             client={selectedClient} 
             industry={selectedIndustry} 
             growthType="market-share"
-          />
-        </TabsContent>
-        
-        <TabsContent value="adjacencies" className="space-y-4">
-          <AdjacencyOpportunities 
-            client={selectedClient} 
-            industry={selectedIndustry} 
-            timeframe={timeframe} 
-          />
-          <ValuePropositions 
-            client={selectedClient} 
-            industry={selectedIndustry} 
-            growthType="adjacency"
           />
         </TabsContent>
         
