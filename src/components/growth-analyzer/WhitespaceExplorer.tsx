@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
@@ -232,12 +231,142 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
     <div className="space-y-4">
       {/* Controls */}
       <div className="flex flex-wrap justify-between items-center gap-4">
-        <Tabs defaultValue="map" onValueChange={setSelectedTab} className="w-auto">
+        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-auto">
           <TabsList>
             <TabsTrigger value="map">Opportunity Map</TabsTrigger>
             <TabsTrigger value="list">Detailed List</TabsTrigger>
             <TabsTrigger value="evidence">Evidence View</TabsTrigger>
           </TabsList>
+        
+          <TabsContent value="map" className="mt-0">
+            <Card>
+              <CardHeader>
+                <CardTitle>Whitespace Opportunity Map</CardTitle>
+                <CardDescription>
+                  Areas of growth opportunity based on market potential, fit, and client evidence
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[400px]">
+                  <ChartContainer config={chartConfig}>
+                    <Treemap
+                      data={treeMapData}
+                      dataKey="value"
+                      aspectRatio={4 / 3}
+                      stroke="#fff"
+                      content={<CustomizedContent />}
+                    >
+                      <ChartTooltip 
+                        content={<ChartTooltipContent />}
+                      />
+                    </Treemap>
+                  </ChartContainer>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="list" className="mt-0">
+            <Card>
+              <CardHeader>
+                <CardTitle>Detailed Whitespace Opportunities</CardTitle>
+                <CardDescription>
+                  Prioritized list of expansion opportunities with market and client context
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 max-h-[600px] overflow-auto pr-2">
+                  {data.adjacencies.sort((a, b) => {
+                    if (sortBy === "opportunity") {
+                      return parseInt(b.opportunity.replace(/[^0-9.]/g, '')) - parseInt(a.opportunity.replace(/[^0-9.]/g, ''));
+                    } else if (sortBy === "confidence") {
+                      const confidenceOrder = { high: 3, medium: 2, low: 1 };
+                      return confidenceOrder[b.confidence as keyof typeof confidenceOrder] - confidenceOrder[a.confidence as keyof typeof confidenceOrder];
+                    } else {
+                      return b.growth - a.growth;
+                    }
+                  }).map((adjacency, index) => (
+                    <div key={index} className="border rounded-lg p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="font-medium text-base">{adjacency.name}</div>
+                        <Badge className={CONFIDENCE_COLORS[adjacency.confidence as keyof typeof CONFIDENCE_COLORS]}>
+                          {adjacency.confidence} confidence
+                        </Badge>
+                      </div>
+                      <div className="text-sm text-muted-foreground mb-3">{adjacency.description}</div>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mt-3">
+                        <div>
+                          <span className="text-muted-foreground">Opportunity:</span>
+                          <span className="ml-1 font-medium">{adjacency.opportunity}</span>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Growth Rate:</span>
+                          <span className="ml-1 font-medium">{adjacency.growth}%</span>
+                        </div>
+                        <div className="col-span-2">
+                          <span className="text-muted-foreground">DXC Offering:</span>
+                          <span className="ml-1 font-medium text-primary">{adjacency.dxcOffering}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-3 pt-3 border-t">
+                        <Button variant="ghost" size="sm" className="text-xs">
+                          <MessageSquare className="h-3 w-3 mr-1" />
+                          View Client Evidence ({(adjacency as any).clientEvidence?.length || 0})
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="evidence" className="mt-0">
+            <Card>
+              <CardHeader>
+                <CardTitle>Client Evidence View</CardTitle>
+                <CardDescription>
+                  Supporting client statements and data points for each opportunity
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 max-h-[600px] overflow-auto pr-2">
+                  {data.adjacencies.map((adjacency, index) => (
+                    <div key={index} className="border rounded-lg p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="font-medium text-base">{adjacency.name}</div>
+                        <Badge className={CONFIDENCE_COLORS[adjacency.confidence as keyof typeof CONFIDENCE_COLORS]}>
+                          {adjacency.opportunity}
+                        </Badge>
+                      </div>
+                      
+                      <div className="mt-3">
+                        <h4 className="text-sm font-medium mb-2">Client Evidence:</h4>
+                        <ul className="space-y-2">
+                          {(adjacency as any).clientEvidence?.map((evidence: string, i: number) => (
+                            <li key={i} className="bg-muted p-2 rounded text-sm flex items-start">
+                              <MessageSquare className="h-4 w-4 mr-2 mt-0.5 text-primary flex-shrink-0" />
+                              <span>{evidence}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      <div className="mt-3 pt-3 border-t flex justify-between">
+                        <Button variant="ghost" size="sm" className="text-xs">
+                          View Related Meeting Transcripts
+                        </Button>
+                        <Button variant="outline" size="sm" className="text-xs">
+                          Add Evidence
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
         
         <div className="flex gap-3">
@@ -265,136 +394,6 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
           </Select>
         </div>
       </div>
-
-      <TabsContent value="map" className="mt-0" hidden={selectedTab !== "map"}>
-        <Card>
-          <CardHeader>
-            <CardTitle>Whitespace Opportunity Map</CardTitle>
-            <CardDescription>
-              Areas of growth opportunity based on market potential, fit, and client evidence
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="h-[400px]">
-              <ChartContainer config={chartConfig}>
-                <Treemap
-                  data={treeMapData}
-                  dataKey="value"
-                  aspectRatio={4 / 3}
-                  stroke="#fff"
-                  content={<CustomizedContent />}
-                >
-                  <ChartTooltip 
-                    content={<ChartTooltipContent />}
-                  />
-                </Treemap>
-              </ChartContainer>
-            </div>
-          </CardContent>
-        </Card>
-      </TabsContent>
-      
-      <TabsContent value="list" className="mt-0" hidden={selectedTab !== "list"}>
-        <Card>
-          <CardHeader>
-            <CardTitle>Detailed Whitespace Opportunities</CardTitle>
-            <CardDescription>
-              Prioritized list of expansion opportunities with market and client context
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4 max-h-[600px] overflow-auto pr-2">
-              {data.adjacencies.sort((a, b) => {
-                if (sortBy === "opportunity") {
-                  return parseInt(b.opportunity.replace(/[^0-9.]/g, '')) - parseInt(a.opportunity.replace(/[^0-9.]/g, ''));
-                } else if (sortBy === "confidence") {
-                  const confidenceOrder = { high: 3, medium: 2, low: 1 };
-                  return confidenceOrder[b.confidence as keyof typeof confidenceOrder] - confidenceOrder[a.confidence as keyof typeof confidenceOrder];
-                } else {
-                  return b.growth - a.growth;
-                }
-              }).map((adjacency, index) => (
-                <div key={index} className="border rounded-lg p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="font-medium text-base">{adjacency.name}</div>
-                    <Badge className={CONFIDENCE_COLORS[adjacency.confidence as keyof typeof CONFIDENCE_COLORS]}>
-                      {adjacency.confidence} confidence
-                    </Badge>
-                  </div>
-                  <div className="text-sm text-muted-foreground mb-3">{adjacency.description}</div>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mt-3">
-                    <div>
-                      <span className="text-muted-foreground">Opportunity:</span>
-                      <span className="ml-1 font-medium">{adjacency.opportunity}</span>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">Growth Rate:</span>
-                      <span className="ml-1 font-medium">{adjacency.growth}%</span>
-                    </div>
-                    <div className="col-span-2">
-                      <span className="text-muted-foreground">DXC Offering:</span>
-                      <span className="ml-1 font-medium text-primary">{adjacency.dxcOffering}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-3 pt-3 border-t">
-                    <Button variant="ghost" size="sm" className="text-xs">
-                      <MessageSquare className="h-3 w-3 mr-1" />
-                      View Client Evidence ({(adjacency as any).clientEvidence?.length || 0})
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </TabsContent>
-      
-      <TabsContent value="evidence" className="mt-0" hidden={selectedTab !== "evidence"}>
-        <Card>
-          <CardHeader>
-            <CardTitle>Client Evidence View</CardTitle>
-            <CardDescription>
-              Supporting client statements and data points for each opportunity
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4 max-h-[600px] overflow-auto pr-2">
-              {data.adjacencies.map((adjacency, index) => (
-                <div key={index} className="border rounded-lg p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <div className="font-medium text-base">{adjacency.name}</div>
-                    <Badge className={CONFIDENCE_COLORS[adjacency.confidence as keyof typeof CONFIDENCE_COLORS]}>
-                      {adjacency.opportunity}
-                    </Badge>
-                  </div>
-                  
-                  <div className="mt-3">
-                    <h4 className="text-sm font-medium mb-2">Client Evidence:</h4>
-                    <ul className="space-y-2">
-                      {(adjacency as any).clientEvidence?.map((evidence: string, i: number) => (
-                        <li key={i} className="bg-muted p-2 rounded text-sm flex items-start">
-                          <MessageSquare className="h-4 w-4 mr-2 mt-0.5 text-primary flex-shrink-0" />
-                          <span>{evidence}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div className="mt-3 pt-3 border-t flex justify-between">
-                    <Button variant="ghost" size="sm" className="text-xs">
-                      View Related Meeting Transcripts
-                    </Button>
-                    <Button variant="outline" size="sm" className="text-xs">
-                      Add Evidence
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </TabsContent>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Alert className="h-auto">
