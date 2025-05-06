@@ -20,6 +20,13 @@ import StrategyDevelopment from "./pages/StrategyDevelopment";
 import CompetitiveIntelligence from "./pages/CompetitiveIntelligence";
 import Resources from "./pages/Resources";
 
+// Placeholder routes for new sections
+import WhitespaceExplorer from "./pages/WhitespaceExplorer";
+import WhatIfScenarios from "./pages/WhatIfScenarios";
+import RelationshipNetwork from "./pages/RelationshipNetwork";
+import CaseStudies from "./pages/CaseStudies";
+import Templates from "./pages/Templates";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -31,32 +38,33 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           
-          {/* Client Understanding & Intelligence */}
+          {/* Client Insights */}
           <Route path="/client-intelligence" element={<ClientIntelligence />} />
           <Route path="/meeting-intelligence" element={<MeetingIntelligence />} />
+          <Route path="/relationship-network" element={<RelationshipNetwork />} />
           
-          {/* Portfolio Alignment & Solution Mapping */}
+          {/* Growth Opportunities */}
+          <Route path="/growth-analyzer" element={<GrowthAnalyzer />} />
+          <Route path="/whitespace-explorer" element={<WhitespaceExplorer />} />
           <Route path="/portfolio-advisor" element={<PortfolioAdvisor />} />
           <Route path="/value-chain" element={<ValueChain />} />
-          
-          {/* Strategy & Value Development */}
-          <Route path="/strategy-development" element={<StrategyDevelopment />} />
-          <Route path="/executive-value-storytelling" element={<ExecutiveValueStorytelling />} />
           
           {/* Competitive Positioning */}
           <Route path="/competitive-intel" element={<CompetitiveIntelligence />} />
           <Route path="/market-position" element={<MarketPosition />} />
-          
-          {/* Strategic Analysis Tools */}
-          <Route path="/growth-analyzer" element={<GrowthAnalyzer />} />
+          <Route path="/competitive-battlecard" element={<CompetitiveBattlecard />} />
           <Route path="/swot-analysis" element={<SwotAnalysis />} />
           
-          {/* Capability Assessment & Planning */}
+          {/* Strategic Planning */}
+          <Route path="/strategy-development" element={<StrategyDevelopment />} />
+          <Route path="/executive-value-storytelling" element={<ExecutiveValueStorytelling />} />
           <Route path="/technology-maturity-assessment" element={<TechnologyMaturityAssessment />} />
-          <Route path="/competitive-battlecard" element={<CompetitiveBattlecard />} />
+          <Route path="/what-if-scenarios" element={<WhatIfScenarios />} />
           
-          {/* Resources */}
+          {/* Resources & Knowledge */}
           <Route path="/resources" element={<Resources />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/templates" element={<Templates />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -4,18 +4,27 @@ import {
   Brain,
   Building2,
   ChartBar,
+  Compass,
   FileCheck,
   FileSpreadsheet,
   Home,
   Library,
+  Lightbulb,
   Menu,
   MessageSquareText,
   Mic,
   Scale,
   ScrollText,
+  Search,
   Settings,
   Sparkles,
+  Star,
   Swords,
+  Clock,
+  Users,
+  Grid2x2,
+  BookOpen,
+  FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -65,7 +74,7 @@ const sidebarSections = [
     ],
   },
   {
-    title: "Client Discovery & Understanding",
+    title: "Client Insights",
     items: [
       {
         icon: Brain,
@@ -78,6 +87,31 @@ const sidebarSections = [
         path: "/meeting-intelligence",
       },
       {
+        icon: Users,
+        label: "Relationship Network",
+        path: "/relationship-network",
+      },
+    ],
+  },
+  {
+    title: "Growth Opportunities",
+    items: [
+      {
+        icon: ChartBar,
+        label: "Growth Analyzer",
+        path: "/growth-analyzer",
+      },
+      {
+        icon: Compass,
+        label: "Whitespace Explorer",
+        path: "/whitespace-explorer",
+      },
+      {
+        icon: ScrollText,
+        label: "Portfolio Advisor",
+        path: "/portfolio-advisor",
+      },
+      {
         icon: Building2,
         label: "Value Chain Analysis",
         path: "/value-chain",
@@ -85,22 +119,7 @@ const sidebarSections = [
     ],
   },
   {
-    title: "Strategy & Value Creation",
-    items: [
-      {
-        icon: ScrollText,
-        label: "Portfolio Advisor",
-        path: "/portfolio-advisor",
-      },
-      {
-        icon: ChartBar,
-        label: "Growth Analyzer",
-        path: "/growth-analyzer",
-      },
-    ],
-  },
-  {
-    title: "Market & Competitive Intelligence",
+    title: "Competitive Positioning",
     items: [
       {
         icon: Swords,
@@ -113,19 +132,19 @@ const sidebarSections = [
         path: "/market-position",
       },
       {
+        icon: FileCheck,
+        label: "Battlecards",
+        path: "/competitive-battlecard",
+      },
+      {
         icon: Scale,
         label: "SWOT Analysis",
         path: "/swot-analysis",
       },
-      {
-        icon: FileSpreadsheet,
-        label: "Technology Maturity",
-        path: "/technology-maturity-assessment",
-      },
     ],
   },
   {
-    title: "Ideas",
+    title: "Strategic Planning",
     items: [
       {
         icon: Sparkles,
@@ -138,9 +157,34 @@ const sidebarSections = [
         path: "/executive-value-storytelling",
       },
       {
+        icon: FileSpreadsheet,
+        label: "Technology Maturity",
+        path: "/technology-maturity-assessment",
+      },
+      {
+        icon: Grid2x2,
+        label: "What-If Scenarios",
+        path: "/what-if-scenarios",
+      },
+    ],
+  },
+  {
+    title: "Resources & Knowledge",
+    items: [
+      {
         icon: Library,
         label: "Knowledge Resources",
         path: "/resources",
+      },
+      {
+        icon: BookOpen,
+        label: "Case Studies",
+        path: "/case-studies",
+      },
+      {
+        icon: FileText,
+        label: "Templates",
+        path: "/templates",
       },
     ],
   },
