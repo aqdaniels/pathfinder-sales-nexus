@@ -1,23 +1,33 @@
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
+import { BarChart, CheckCircle2, InfoIcon, Layers, LinkIcon, Zap } from "lucide-react";
+import { ClientInsightPanel } from "./ClientInsightPanel";
+import { SolutionCardWithEvidence } from "./SolutionCardWithEvidence";
+import { useState } from "react";
+import { Solution, matchSolutionToInsights, SolutionWithEvidence, ClientInsight } from "@/utils/ChallengeMatchingEngine";
 import { Badge } from "../ui/badge";
-import { CheckCircle2, InfoIcon, Layers, LinkIcon, Zap } from "lucide-react";
 
-type Solution = {
-  id: string;
-  name: string;
-  description: string;
-  confidenceScore: number;
-  keyFeatures: string[];
-  benefits: string[];
-  practice: "Custom Apps" | "SAP" | "Enterprise & Cloud" | "Data & AI";
-  tags: string[];
+// Sample meeting data - would be connected to the actual meeting intelligence in a real implementation
+const clientInsights: ClientInsight = {
+  clientName: "Acme Corp",
+  lastMeeting: "Apr 15, 2025",
+  sentiment: 78,
+  keyTopics: [
+    { name: "Backend Modernization", mentions: 8, sentiment: 82 },
+    { name: "Data Architecture", mentions: 6, sentiment: 75 },
+    { name: "Cost Reduction", mentions: 5, sentiment: 88 },
+    { name: "Implementation Timeline", mentions: 4, sentiment: 65 },
+  ],
+  challenges: [
+    { name: "Legacy System Integration", confidence: 89 },
+    { name: "Data Migration Complexity", confidence: 76 },
+    { name: "Staff Training Requirements", confidence: 82 },
+  ],
+  summary: "Client expressed strong interest in modernizing their backend systems with concerns about implementation timelines. Cost reduction is a primary driver for their digital transformation initiatives."
 };
 
-const solutions: Solution[] = [
+// Sample solutions data
+const solutionsData: Solution[] = [
   {
     id: "s1",
     name: "Enterprise Cloud Transformation",
@@ -81,6 +91,24 @@ const solutions: Solution[] = [
 ];
 
 export function SolutionMatcher() {
+  // Process solutions against client insights
+  const [filteredBy, setFilteredBy] = useState<string | null>(null);
+  
+  // Match solutions to client insights
+  const rankedSolutions: SolutionWithEvidence[] = solutionsData
+    .map(solution => matchSolutionToInsights(solution, clientInsights))
+    .sort((a, b) => b.overallScore - a.overallScore);
+  
+  // Filter solutions based on selected challenge, if any
+  const displayedSolutions = filteredBy 
+    ? rankedSolutions.filter(sol => 
+        sol.matchEvidence.some(evidence => evidence.challengeName === filteredBy)
+      )
+    : rankedSolutions;
+    
+  const topSolution = displayedSolutions[0];
+  const alternativeSolutions = displayedSolutions.slice(1);
+
   return (
     <div className="space-y-6">
       <div>
@@ -90,127 +118,57 @@ export function SolutionMatcher() {
         </p>
       </div>
 
-      <Card className="border-dxc-purple/30">
-        <CardHeader className="bg-dxc-purple-light/10 border-b border-dxc-purple/20">
-          <div className="flex justify-between items-center">
-            <div>
-              <CardTitle className="flex items-center text-lg text-dxc-purple-dark">
-                <Zap className="mr-2 h-5 w-5 text-dxc-purple" /> Top Recommendation
-              </CardTitle>
-              <CardDescription>
-                Highest confidence match based on client conversations
-              </CardDescription>
-            </div>
-            <Badge className="bg-dxc-purple/80">
-              {solutions[0].confidenceScore}% Match
-            </Badge>
-          </div>
-        </CardHeader>
-        <CardContent className="p-6">
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-xl font-semibold mb-2">{solutions[0].name}</h3>
-              <p className="text-muted-foreground">{solutions[0].description}</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-              <div>
-                <h4 className="font-medium flex items-center mb-3">
-                  <CheckCircle2 className="mr-2 h-4 w-4 text-dxc-purple" /> Key Features
-                </h4>
-                <ul className="space-y-2">
-                  {solutions[0].keyFeatures.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="h-5 w-5 rounded-full bg-dxc-purple-light/30 text-dxc-purple-dark flex items-center justify-center text-xs mr-2 mt-0.5">
-                        {index + 1}
-                      </span>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-medium flex items-center mb-3">
-                  <Layers className="mr-2 h-4 w-4 text-dxc-purple" /> Client Benefits
-                </h4>
-                <ul className="space-y-2">
-                  {solutions[0].benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="h-5 w-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs mr-2 mt-0.5">
-                        ✓
-                      </span>
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-2 mt-4">
-              <Badge variant="secondary">{solutions[0].practice}</Badge>
-              {solutions[0].tags.map((tag) => (
-                <Badge key={tag} variant="outline">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-
-            <div className="flex justify-end gap-3 mt-6">
-              <Button variant="outline">
-                <InfoIcon className="mr-2 h-4 w-4" /> View Details
-              </Button>
-              <Button>
-                <LinkIcon className="mr-2 h-4 w-4" /> Map to Client
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <h3 className="text-xl font-semibold mt-8">Alternative Solutions</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {solutions.slice(1).map((solution) => (
-          <Card key={solution.id}>
-            <CardHeader className="pb-3">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-lg">{solution.name}</CardTitle>
-                <Badge variant="outline">{solution.confidenceScore}%</Badge>
-              </div>
-              <CardDescription>{solution.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <span className="text-sm font-medium">Confidence Score</span>
-                  <Progress value={solution.confidenceScore} className="h-2 mt-1" />
-                </div>
-                <Separator />
-                <div className="flex flex-col gap-2">
-                  <span className="text-sm font-medium">Key Features</span>
-                  <ul className="text-sm text-muted-foreground space-y-1">
-                    {solution.keyFeatures.slice(0, 2).map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="h-4 w-4 rounded-full bg-dxc-purple-light/30 text-dxc-purple-dark flex items-center justify-center text-xs mr-2 mt-0.5">
-                          {index + 1}
-                        </span>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary">{solution.practice}</Badge>
-                  {solution.tags.slice(0, 2).map((tag) => (
-                    <Badge key={tag} variant="outline">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-                <Button variant="outline" className="w-full">View Solution</Button>
-              </div>
-            </CardContent>
-          </Card>
+      {/* Client Intelligence Panel */}
+      <ClientInsightPanel />
+      
+      {/* Challenge Filter */}
+      <div className="flex flex-wrap gap-2 items-center mb-4">
+        <span className="text-sm font-medium mr-2">Filter by challenge:</span>
+        <Badge 
+          variant={filteredBy === null ? "secondary" : "outline"}
+          className="cursor-pointer"
+          onClick={() => setFilteredBy(null)}
+        >
+          All Challenges
+        </Badge>
+        {clientInsights.challenges.map(challenge => (
+          <Badge 
+            key={challenge.name}
+            variant={filteredBy === challenge.name ? "secondary" : "outline"}
+            className="cursor-pointer"
+            onClick={() => setFilteredBy(challenge.name)}
+          >
+            {challenge.name}
+          </Badge>
         ))}
+      </div>
+
+      {/* Top Solution */}
+      {topSolution && (
+        <SolutionCardWithEvidence solution={topSolution} isTopRecommendation={true} />
+      )}
+
+      {/* Alternative Solutions */}
+      {alternativeSolutions.length > 0 && (
+        <>
+          <h3 className="text-xl font-semibold mt-8">Alternative Solutions</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {alternativeSolutions.map((solution) => (
+              <SolutionCardWithEvidence key={solution.id} solution={solution} />
+            ))}
+          </div>
+        </>
+      )}
+      
+      {/* Feedback & Actions */}
+      <div className="flex justify-between items-center pt-6 mt-6 border-t">
+        <div className="flex items-center gap-2">
+          <BarChart className="h-5 w-5 text-dxc-purple" />
+          <span className="text-sm font-medium">AI-powered matching based on client conversations</span>
+        </div>
+        <Button>
+          Save Recommendations
+        </Button>
       </div>
     </div>
   );
