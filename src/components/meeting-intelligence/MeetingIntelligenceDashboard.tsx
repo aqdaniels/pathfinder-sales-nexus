@@ -79,14 +79,14 @@ const topTopics = [
 export function MeetingIntelligenceDashboard() {
   return (
     <div className="space-y-6">
-      {/* Recent Meetings Timeline */}
-      <RecentMeetings meetings={meetings} />
-
-      {/* Communication Metrics Overview */}
+      {/* 1. Meeting Metrics */}
       <StatCards />
 
-      {/* Insights Tabs */}
+      {/* 2. Visualization Tabs */}
       <InsightsTabs trendData={trendData} topTopics={topTopics} />
+
+      {/* 3. Recent Meetings Timeline */}
+      <RecentMeetings meetings={meetings} />
     </div>
   );
 }
