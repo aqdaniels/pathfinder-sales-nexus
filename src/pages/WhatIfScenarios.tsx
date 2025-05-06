@@ -12,7 +12,11 @@ export default function WhatIfScenarios() {
             Model different strategic approaches and their potential outcomes
           </p>
         </div>
-        <WhatIfBuilder />
+        <WhatIfBuilder 
+          client="Acme Corporation" 
+          industry="Technology" 
+          timeframe="5-year" 
+        />
       </div>
     </Layout>
   );
