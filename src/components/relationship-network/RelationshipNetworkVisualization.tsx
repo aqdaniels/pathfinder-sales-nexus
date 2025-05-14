@@ -1,6 +1,6 @@
 
 import { useEffect, useRef, useState } from "react";
-import ForceGraph2D from "react-force-graph";
+import { ForceGraph2D } from "react-force-graph"; // Fixed import statement
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -36,6 +36,9 @@ interface GraphNode {
   influence: number;
   sentiment: number;
   avatar?: string;
+  // Add x and y properties that are required by ForceGraph2D
+  x?: number;
+  y?: number;
 }
 
 interface GraphLink {
@@ -95,6 +98,7 @@ export function RelationshipNetworkVisualization() {
     setSelectedNode(node);
     setShowNodeDialog(true);
     if (graphRef.current) {
+      // Since we've added x and y to the GraphNode interface, this is now type-safe
       graphRef.current.centerAt(node.x, node.y, 1000);
       graphRef.current.zoom(1.5, 1000);
     }
