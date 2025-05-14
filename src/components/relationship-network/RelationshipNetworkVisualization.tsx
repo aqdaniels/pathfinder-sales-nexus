@@ -1,6 +1,5 @@
-
 import { useEffect, useRef, useState } from "react";
-import { ForceGraph2D } from "react-force-graph"; // Fixed import statement
+import { ForceGraph2D } from "react-force-graph";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
