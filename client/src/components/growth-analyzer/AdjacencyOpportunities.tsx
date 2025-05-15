@@ -97,9 +97,9 @@ const CONFIDENCE_COLORS = {
 
 export const AdjacencyOpportunities = ({ client, industry, timeframe }: AdjacencyOpportunitiesProps) => {
   const data = getAdjacencyData(client, industry, timeframe);
-  
+
   // Find the adjacency with the highest opportunity value
-  const topAdjacency = [...data.adjacencies].sort((a, b) => 
+  const topAdjacency = [...data.adjacencies].sort((a, b) =>
     parseInt(b.opportunity.replace(/[^0-9.]/g, '')) - parseInt(a.opportunity.replace(/[^0-9.]/g, ''))
   )[0];
 
@@ -122,7 +122,7 @@ export const AdjacencyOpportunities = ({ client, industry, timeframe }: Adjacenc
 
   const CustomizedContent = (props: any) => {
     const { x, y, width, height, name, opportunity, growth } = props;
-    
+
     return (
       <g>
         <rect
@@ -197,17 +197,19 @@ export const AdjacencyOpportunities = ({ client, industry, timeframe }: Adjacenc
         <CardContent>
           <div className="h-[400px]">
             <ChartContainer config={chartConfig}>
-              <Treemap
-                data={treeMapData}
-                dataKey="value"
-                aspectRatio={4 / 3}
-                stroke="#fff"
-                content={<CustomizedContent />}
-              >
-                <ChartTooltip 
-                  content={<ChartTooltipContent />}
-                />
-              </Treemap>
+              <ResponsiveContainer width="100%" height="100%">
+                <Treemap
+                  data={treeMapData}
+                  dataKey="value"
+                  aspectRatio={4 / 3}
+                  stroke="#fff"
+                  content={<CustomizedContent />}
+                >
+                  <ChartTooltip
+                    content={<ChartTooltipContent />}
+                  />
+                </Treemap>
+              </ResponsiveContainer>
             </ChartContainer>
           </div>
         </CardContent>

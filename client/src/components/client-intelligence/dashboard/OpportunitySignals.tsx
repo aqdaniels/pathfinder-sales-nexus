@@ -13,7 +13,7 @@ type OpportunitySignal = {
   title: string;
   description: string;
   confidence: number;
-  source: "meeting" | "email" | "crm";
+  source: "meeting" | "email" | "sfdc";
   dateDetected: string;
   priority: "high" | "medium" | "low";
   context?: string;
@@ -99,12 +99,12 @@ const signalsData: OpportunitySignal[] = [
     title: "AI Implementation in Customer Service",
     description: "New strategic initiative to implement AI-powered customer service tools by end of year.",
     confidence: 75,
-    source: "crm",
+    source: "sfdc",
     dateDetected: "Apr 05, 2025",
     priority: "medium",
     relatedSolutions: ["AI Solutions", "Customer Experience Transformation"],
     sourceDetails: {
-      title: "CRM Notes - Strategic Planning",
+      title: "SFDC Notes - Strategic Planning",
       date: "Apr 05, 2025",
       snippet: "Customer is investigating AI-powered service solutions to improve first-call resolution rates and reduce support costs."
     }
@@ -131,7 +131,7 @@ interface OpportunitySignalsProps {
 
 export function OpportunitySignals({ limit }: OpportunitySignalsProps) {
   const [selectedSignal, setSelectedSignal] = useState<OpportunitySignal | null>(null);
-  
+
   // Display all or limited signals based on prop
   const displaySignals = limit ? signalsData.slice(0, limit) : signalsData;
 
@@ -162,7 +162,7 @@ export function OpportunitySignals({ limit }: OpportunitySignalsProps) {
                 {signal.priority === 'high' ? 'High' : signal.priority === 'medium' ? 'Medium' : 'Low'} Priority
               </Badge>
             </div>
-            
+
             <div className="flex items-center justify-between mt-3 pt-2 border-t text-xs text-muted-foreground">
               <div className="flex items-center gap-4">
                 <span className="flex items-center">
@@ -171,18 +171,18 @@ export function OpportunitySignals({ limit }: OpportunitySignalsProps) {
                 </span>
                 <span className="flex items-center">
                   <FileText className="h-3 w-3 mr-1" />
-                  {signal.source === 'meeting' ? 'Meeting' : signal.source === 'email' ? 'Email' : 'CRM'}
+                  {signal.source === 'meeting' ? 'Meeting' : signal.source === 'email' ? 'Email' : 'SFDC'}
                 </span>
                 <span className="flex items-center">
                   {getConfidenceLevelText(signal.confidence)} confidence ({signal.confidence}%)
                 </span>
               </div>
-              
+
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     className="h-7 gap-1 text-xs"
                     onClick={() => setSelectedSignal(signal)}
                   >
@@ -203,10 +203,10 @@ export function OpportunitySignals({ limit }: OpportunitySignalsProps) {
                           <DialogTitle>{selectedSignal.title}</DialogTitle>
                         </div>
                         <DialogDescription>
-                          Detected on {selectedSignal.dateDetected} from {selectedSignal.source === 'meeting' ? 'a meeting' : selectedSignal.source === 'email' ? 'an email' : 'CRM data'}
+                          Detected on {selectedSignal.dateDetected} from {selectedSignal.source === 'meeting' ? 'a meeting' : selectedSignal.source === 'email' ? 'an email' : 'SFDC data'}
                         </DialogDescription>
                       </DialogHeader>
-                      
+
                       <div className="space-y-4">
                         <div>
                           <h4 className="text-sm font-medium mb-1">Description</h4>
@@ -215,7 +215,7 @@ export function OpportunitySignals({ limit }: OpportunitySignalsProps) {
                             <p className="text-sm text-muted-foreground mt-2">{selectedSignal.context}</p>
                           )}
                         </div>
-                        
+
                         <div className="space-y-2">
                           <h4 className="text-sm font-medium">Confidence Assessment</h4>
                           <div className="flex items-center gap-3">
@@ -226,9 +226,9 @@ export function OpportunitySignals({ limit }: OpportunitySignalsProps) {
                             {getConfidenceLevelText(selectedSignal.confidence)} confidence based on context, frequency, and sentiment analysis
                           </p>
                         </div>
-                        
+
                         <Separator />
-                        
+
                         {selectedSignal.sourceDetails && (
                           <div className="space-y-2">
                             <h4 className="text-sm font-medium flex items-center gap-2">
@@ -244,7 +244,7 @@ export function OpportunitySignals({ limit }: OpportunitySignalsProps) {
                             </div>
                           </div>
                         )}
-                        
+
                         {selectedSignal.relatedSolutions && (
                           <div className="space-y-2">
                             <h4 className="text-sm font-medium">Related Solutions</h4>

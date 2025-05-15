@@ -137,11 +137,11 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
   const [filter, setFilter] = useState("all");
   const [selectedTab, setSelectedTab] = useState("map");
   const [sortBy, setSortBy] = useState("opportunity");
-  
+
   const data = getWhitespaceData(client, industry, timeframe, filter);
-  
+
   // Find the adjacency with the highest opportunity value
-  const topAdjacency = [...data.adjacencies].sort((a, b) => 
+  const topAdjacency = [...data.adjacencies].sort((a, b) =>
     parseInt(b.opportunity.replace(/[^0-9.]/g, '')) - parseInt(a.opportunity.replace(/[^0-9.]/g, ''))
   )[0];
 
@@ -164,7 +164,7 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
 
   const CustomizedContent = (props: any) => {
     const { x, y, width, height, name, opportunity, growth } = props;
-    
+
     return (
       <g>
         <rect
@@ -237,7 +237,7 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
             <TabsTrigger value="list">Detailed List</TabsTrigger>
             <TabsTrigger value="evidence">Evidence View</TabsTrigger>
           </TabsList>
-        
+
           <TabsContent value="map" className="mt-0">
             <Card>
               <CardHeader>
@@ -249,23 +249,25 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
               <CardContent>
                 <div className="h-[400px]">
                   <ChartContainer config={chartConfig}>
-                    <Treemap
-                      data={treeMapData}
-                      dataKey="value"
-                      aspectRatio={4 / 3}
-                      stroke="#fff"
-                      content={<CustomizedContent />}
-                    >
-                      <ChartTooltip 
-                        content={<ChartTooltipContent />}
-                      />
-                    </Treemap>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <Treemap
+                        data={treeMapData}
+                        dataKey="value"
+                        aspectRatio={4 / 3}
+                        stroke="#fff"
+                        content={<CustomizedContent />}
+                      >
+                        <ChartTooltip
+                          content={<ChartTooltipContent />}
+                        />
+                      </Treemap>
+                    </ResponsiveContainer>
                   </ChartContainer>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
-          
+
           <TabsContent value="list" className="mt-0">
             <Card>
               <CardHeader>
@@ -308,7 +310,7 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
                           <span className="ml-1 font-medium text-primary">{adjacency.dxcOffering}</span>
                         </div>
                       </div>
-                      
+
                       <div className="mt-3 pt-3 border-t">
                         <Button variant="ghost" size="sm" className="text-xs">
                           <MessageSquare className="h-3 w-3 mr-1" />
@@ -321,7 +323,7 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
               </CardContent>
             </Card>
           </TabsContent>
-          
+
           <TabsContent value="evidence" className="mt-0">
             <Card>
               <CardHeader>
@@ -340,7 +342,7 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
                           {adjacency.opportunity}
                         </Badge>
                       </div>
-                      
+
                       <div className="mt-3">
                         <h4 className="text-sm font-medium mb-2">Client Evidence:</h4>
                         <ul className="space-y-2">
@@ -352,7 +354,7 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
                           ))}
                         </ul>
                       </div>
-                      
+
                       <div className="mt-3 pt-3 border-t flex justify-between">
                         <Button variant="ghost" size="sm" className="text-xs">
                           View Related Meeting Transcripts
@@ -368,7 +370,7 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
             </Card>
           </TabsContent>
         </Tabs>
-        
+
         <div className="flex gap-3">
           <Select defaultValue="all" onValueChange={setFilter}>
             <SelectTrigger className="w-[180px]">
@@ -381,7 +383,7 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
               <SelectItem value="industry">Industry Specific</SelectItem>
             </SelectContent>
           </Select>
-          
+
           <Select defaultValue="opportunity" onValueChange={setSortBy}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Sort by" />
@@ -433,7 +435,7 @@ export const WhitespaceExplorer = ({ client, industry, timeframe }: WhitespaceEx
                 </div>
               ))}
             </div>
-            
+
             <div className="bg-muted/30 p-3 rounded-md mt-4">
               <p className="text-sm">
                 {data.benchmarks[2].penetration > data.benchmarks[0].penetration ? (

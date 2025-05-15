@@ -4,21 +4,43 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 lerna-debug.log*
 
+# Dependency directories
+**/node_modules
 node_modules
-dist
-dist-ssr
-*.local
+*/node_modules
+server/node_modules
+client/node_modules
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Environment variables
+.env
+server/.env
+client/.env
+
+# Local storage for development
+server/local-storage/
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output/
+
+# Build output
+dist/
+build/
+server/dist/
+client/dist/
+server/build/
+client/build/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db

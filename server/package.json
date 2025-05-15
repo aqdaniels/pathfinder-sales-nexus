@@ -1,0 +1,33 @@
+{
+  "name": "dxc-pathfinder-server",
+  "version": "1.0.0",
+  "description": "Backend server for DXC Pathfinder platform",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest",
+    "setup-env": "node -e \"const fs = require('fs'); if (!fs.existsSync('.env')) { fs.copyFileSync('.env.example', '.env'); console.log('.env file created from .env.example'); } else { console.log('.env file already exists'); }\""
+  },
+  "dependencies": {
+    "@azure/identity": "^3.2.0",
+    "@azure/keyvault-secrets": "^4.7.0",
+    "@azure/storage-blob": "^12.14.0",
+    "@hapi/hapi": "^21.3.0",
+    "@hapi/inert": "^7.1.0",
+    "@hapi/joi": "^17.1.1",
+    "@hapi/vision": "^7.0.1",
+    "dotenv": "^16.0.3",
+    "hapi-auth-jwt2": "^10.4.0",
+    "hapi-swagger": "^16.0.1",
+    "joi": "^17.9.1",
+    "mssql": "^9.1.1",
+    "pino": "^8.11.0",
+    "tedious": "^16.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "pino-pretty": "^10.0.0"
+  }
+}

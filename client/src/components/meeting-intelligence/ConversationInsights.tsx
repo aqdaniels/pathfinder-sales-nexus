@@ -1,9 +1,13 @@
 
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Mic, ThumbsDown, ThumbsUp } from "lucide-react";
+import { FileText, Mic, ThumbsDown, ThumbsUp, Upload } from "lucide-react";
 import { Badge } from "../ui/badge";
+import { Button } from "@/components/ui/button";
+import { FileUpload } from "@/components/ui/file-upload";
+import { TranscriptViewer } from "./TranscriptViewer";
 
 const meetingData = {
   id: "m123",
@@ -50,6 +54,27 @@ const meetingData = {
 };
 
 export function ConversationInsights() {
+  const [uploadedTranscript, setUploadedTranscript] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handleFileChange = async (file: File | null) => {
+    if (!file) {
+      setUploadedTranscript(null);
+      return;
+    }
+
+    // Read the file content
+    setIsProcessing(true);
+    try {
+      const text = await file.text();
+      setUploadedTranscript(text);
+    } catch (error) {
+      console.error("Error reading file:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   return (
     <Tabs defaultValue="overview" className="w-full">
       <div className="flex justify-between items-center mb-4">
@@ -218,8 +243,35 @@ export function ConversationInsights() {
             <CardDescription>Full conversation transcript with insights</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="bg-muted/30 p-4 rounded-lg whitespace-pre-line font-mono text-sm">
-              {meetingData.transcript}
+            <div className="grid grid-cols-1 gap-6">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-md font-medium">Transcript Content</h3>
+                  <div className="flex items-center gap-2">
+                    <FileUpload
+                      onFileChange={handleFileChange}
+                      accept=".txt,.md,.csv"
+                      maxSize={5 * 1024 * 1024} // 5MB
+                      buttonText="Upload Transcript"
+                      className="w-48"
+                    />
+                  </div>
+                </div>
+
+                {isProcessing ? (
+                  <div className="flex items-center justify-center p-8">
+                    <div className="text-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-dxc-purple mx-auto mb-4"></div>
+                      <p className="text-sm text-muted-foreground">Processing transcript...</p>
+                    </div>
+                  </div>
+                ) : (
+                  <TranscriptViewer
+                    transcript={uploadedTranscript || meetingData.transcript}
+                    maxHeight="500px"
+                  />
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>

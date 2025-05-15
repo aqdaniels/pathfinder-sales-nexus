@@ -9,14 +9,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { 
-  Lightbulb, 
-  PlusCircle, 
-  UserCircle, 
-  Users, 
-  ThumbsUp, 
-  MessageSquare, 
-  Save, 
+import {
+  Lightbulb,
+  PlusCircle,
+  UserCircle,
+  Users,
+  ThumbsUp,
+  MessageSquare,
+  Save,
   Play
 } from "lucide-react";
 
@@ -164,7 +164,7 @@ const sampleIdeas = {
   "combine": [
     {
       id: "idea-3",
-      text: "Integrate CRM with ERP for 360-degree customer visibility",
+      text: "Integrate SFDC with ERP for 360-degree customer visibility",
       author: "Mark Wilson",
       votes: 4,
       comments: 0
@@ -188,7 +188,7 @@ export function ScamperWorkshop() {
 
   const handleAddIdea = () => {
     if (!newIdea.trim()) return;
-    
+
     setIdeas(prev => ({
       ...prev,
       [activeElement]: [
@@ -202,14 +202,14 @@ export function ScamperWorkshop() {
         }
       ]
     }));
-    
+
     setNewIdea("");
   };
 
   const handleVote = (ideaId) => {
     setIdeas(prev => ({
       ...prev,
-      [activeElement]: prev[activeElement].map(idea => 
+      [activeElement]: prev[activeElement].map(idea =>
         idea.id === ideaId ? { ...idea, votes: idea.votes + 1 } : idea
       )
     }));
@@ -236,13 +236,13 @@ export function ScamperWorkshop() {
                 <button
                   key={element.id}
                   className={`flex items-center p-4 border-l-4 transition-colors hover:bg-gray-50 ${
-                    activeElement === element.id 
-                      ? `${element.color} font-medium` 
+                    activeElement === element.id
+                      ? `${element.color} font-medium`
                       : "border-transparent"
                   }`}
                   onClick={() => setActiveElement(element.id)}
                 >
-                  <Lightbulb 
+                  <Lightbulb
                     className={`mr-3 h-5 w-5 ${
                       activeElement === element.id ? "text-primary" : "text-gray-400"
                     }`}
@@ -268,7 +268,7 @@ export function ScamperWorkshop() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <Button 
+                    <Button
                       variant={isRecording ? "destructive" : "default"}
                       size="sm"
                       onClick={toggleRecording}
@@ -286,7 +286,7 @@ export function ScamperWorkshop() {
                         </>
                       )}
                     </Button>
-                    
+
                     <div className="flex items-center">
                       <Users className="h-5 w-5 text-gray-500 mr-2" />
                       <span className="text-sm font-medium">Participants ({sessionParticipants.length})</span>
@@ -306,7 +306,7 @@ export function ScamperWorkshop() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div>
                     <Button variant="outline" size="sm" className="mr-2">
                       <Save className="mr-2 h-4 w-4" />
@@ -321,7 +321,7 @@ export function ScamperWorkshop() {
               </CardContent>
             </Card>
           </div>
-          
+
           {/* Current SCAMPER element */}
           <div className="col-span-12">
             <Card className={`border-l-4 ${currentElement?.color || ""}`}>
@@ -344,7 +344,7 @@ export function ScamperWorkshop() {
                       ))}
                     </ul>
                   </div>
-                  
+
                   <div>
                     <h4 className="font-medium mb-2">Examples</h4>
                     <div className="flex flex-wrap gap-2">
@@ -359,7 +359,7 @@ export function ScamperWorkshop() {
               </CardContent>
             </Card>
           </div>
-          
+
           {/* Ideation area */}
           <div className="col-span-12">
             <Card>
@@ -372,7 +372,7 @@ export function ScamperWorkshop() {
               <CardContent>
                 <div className="space-y-6">
                   <div className="flex gap-3">
-                    <Textarea 
+                    <Textarea
                       placeholder="Share your idea here..."
                       className="flex-1"
                       value={newIdea}
@@ -383,12 +383,12 @@ export function ScamperWorkshop() {
                       Add Idea
                     </Button>
                   </div>
-                  
+
                   <Separator />
-                  
+
                   <div>
                     <h4 className="font-medium mb-4">Ideas ({(ideas[activeElement] || []).length})</h4>
-                    
+
                     {(ideas[activeElement] || []).length === 0 ? (
                       <div className="text-center py-8 text-gray-500">
                         <Lightbulb className="mx-auto h-12 w-12 opacity-20 mb-3" />
@@ -398,8 +398,8 @@ export function ScamperWorkshop() {
                       <ScrollArea className="h-[400px] pr-4">
                         <div className="space-y-4">
                           {(ideas[activeElement] || []).sort((a, b) => b.votes - a.votes).map(idea => (
-                            <div 
-                              key={idea.id} 
+                            <div
+                              key={idea.id}
                               className="p-4 border rounded-md hover:shadow-sm transition-shadow"
                             >
                               <div className="flex justify-between items-start mb-2">
@@ -412,8 +412,8 @@ export function ScamperWorkshop() {
                                   <span className="text-sm font-medium">{idea.author}</span>
                                 </div>
                                 <div className="flex items-center">
-                                  <Button 
-                                    variant="ghost" 
+                                  <Button
+                                    variant="ghost"
                                     size="sm"
                                     onClick={() => handleVote(idea.id)}
                                   >

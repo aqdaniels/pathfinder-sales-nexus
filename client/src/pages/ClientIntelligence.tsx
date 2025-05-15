@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { ClientIntelligenceDashboard } from "@/components/client-intelligence/ClientIntelligenceDashboard";
-import { Card, CardContent } from "@/components/ui/card"; 
+import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -62,7 +62,8 @@ const ClientIntelligence = () => {
                     <TabsTrigger value="all" className="text-xs">All Sources</TabsTrigger>
                     <TabsTrigger value="meetings" className="text-xs">Meetings</TabsTrigger>
                     <TabsTrigger value="emails" className="text-xs">Emails</TabsTrigger>
-                    <TabsTrigger value="crm" className="text-xs">CRM</TabsTrigger>
+                    <TabsTrigger value="miq" className="text-xs">Market Intelligence</TabsTrigger>
+                    <TabsTrigger value="sfdc" className="text-xs">SFDC</TabsTrigger>
                   </TabsList>
                 </Tabs>
               </div>
@@ -70,7 +71,7 @@ const ClientIntelligence = () => {
           </div>
         </CardContent>
       </Card>
-      
+
       <ClientIntelligenceDashboard />
     </Layout>
   );
